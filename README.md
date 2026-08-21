@@ -1,21 +1,26 @@
 # Premiere Marker Export
 
-A small Adobe Premiere Pro panel that exports a clip for every sequence marker.
-Drop markers on your timeline, click one button, and each segment is queued to
-Adobe Media Encoder as its own file.
+A small Adobe Premiere Pro panel that exports marker spans or individual
+timeline clips as separate files in Adobe Media Encoder.
 
 ![Marker Export panel turning timeline markers into video clips](docs/panel.png)
 
 ## What it does
 
-For each sequence marker, it exports the timeline from that marker to the
-**next** marker (or uses the marker's own duration, if it has one). The last
-marker just closes off the final segment — so **4 markers → 3 clips:**
+Choose either export mode:
+
+- **Marker spans** exports the timeline from each sequence marker to the
+  **next** marker (or uses the marker's own duration, if it has one). The last
+  marker just closes off the final segment — so **4 markers → 3 clips:**
+- **Timeline clips** queues one export for every video clip on every video
+  track, using that clip's timeline start and end. The exported file is the
+  normal rendered sequence for that range, so overlays and the sequence audio
+  mix are included; overlapping clips are queued as separate files.
 
 ![Four timeline markers producing three exported clips](docs/markers-to-clips.png)
 
-Files are named `NNN_<marker name>.<ext>`, where the extension comes from the
-Adobe Media Encoder preset you choose.
+Files are named `NNN_<marker-or-clip name>.<ext>`, where the extension comes
+from the Adobe Media Encoder preset you choose.
 
 ---
 
@@ -68,7 +73,9 @@ Then **fully quit and reopen Premiere Pro** → **Window → Extensions → Mark
 
 ## Usage
 
-1. Open a sequence and add markers where you want clips to start/end.
+1. Open a sequence. Choose **Marker spans** and add markers where you want
+   clips to start/end, or choose **Timeline clips** to export every video clip
+   already in the sequence.
 2. **Make a preset.**
 
    ![Saving an export preset from Premiere's Export page](docs/save-preset.png)
@@ -102,6 +109,10 @@ Delete the panel from your CEP extensions folder:
 
 - **Premiere Pro 2019–2026+** (CEP 9–13), on **macOS and Windows**.
 - Requires **Adobe Media Encoder** installed (the panel queues exports to it).
+- **HEVC/H.265:** Premiere Pro 25.5 and newer block scripted HEVC generation.
+  The panel detects HEVC presets and explains the limitation instead of
+  reporting jobs that AME will silently discard. Use H.264 or ProRes for
+  automated exports, or export HEVC manually.
 
 ## Notes
 

@@ -62,6 +62,14 @@
         .pick:hover { background: #666; }
         #exportBtn { background: #4b7bec; }
         #exportBtn:hover { background: #3867d6; }
+        select {
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 3px;
+            color: #d8d8d8;
+            font: inherit;
+            padding: 2px 4px;
+        }
         button:disabled { background: #3a3a3a; color: #777; cursor: default; }
         #status {
             margin-top: auto;
@@ -74,13 +82,8 @@
 </head>
 <body>
     <div class="wrap">
-        <h1>Export Markers as Clips</h1>
-        <p class="hint">
-            Exports one video clip for the span between each pair of markers.
-            With markers at every cut, 4 markers → 3 clips: each marker
-            runs through to the next one (the last marker just closes the
-            final clip). Set your export folder and preset once, then export.
-        </p>
+        <h1>Export Clips</h1>
+        <p class="hint" id="modeHint"></p>
 
         <div class="btnRow">
             <button id="folderBtn" class="pick">Set Folder…</button>
@@ -88,11 +91,12 @@
         </div>
 
         <div class="settings">
+            <div class="row"><span class="label">Mode:</span><select id="modeSelect"><option value="markers">Marker spans</option><option value="timelineClips">Timeline clips</option></select></div>
             <div class="row"><span class="label">Folder:</span><span class="val" id="folderVal">not set</span></div>
             <div class="row"><span class="label">Preset:</span><span class="val" id="presetVal">not set</span></div>
         </div>
 
-        <button id="exportBtn" disabled>Export Video Clips</button>
+        <button id="exportBtn" disabled>Export Marker Spans</button>
         <div id="status"></div>
     </div>
 
